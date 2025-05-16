@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Galerie Pedro – Œuvre d’art</title>
+  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Georgia', serif;
+      background-color: #f5f2ec;
       margin: 0;
       padding: 0;
-      background-color: #f5f2ec;
       color: #2c2c2c;
     }
+
     .container {
       max-width: 900px;
       margin: 40px auto;
@@ -19,51 +21,184 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
       border-radius: 8px;
     }
+
     h1 {
       text-align: center;
       font-size: 2.5em;
-      margin-bottom: 0.2em;
     }
+
     .subtitle {
       text-align: center;
       font-style: italic;
       color: #555;
       margin-bottom: 2em;
     }
+
     .image-container {
       text-align: center;
+      cursor: zoom-in;
     }
+
     img {
       max-width: 100%;
       border: 5px solid #ddd;
       border-radius: 6px;
-      margin-bottom: 2em;
+      transition: transform 0.3s ease;
     }
+
+    img.fullscreen {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      max-height: 90%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      border: 10px solid white;
+      background: white;
+      cursor: zoom-out;
+    }
+
     .description {
       font-size: 1.2em;
       line-height: 1.8;
       text-align: justify;
     }
+
+    .signature {
+      font-family: 'Homemade Apple', cursive;
+      font-size: 1.8em;
+      text-align: center;
+      margin-top: 2em;
+      color: #444;
+    }
+
+    .formulaire {
+      margin-top: 3em;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .lang-switch {
+      text-align: right;
+      margin-top: -20px;
+    }
+
+    .lang-switch button {
+      background: none;
+      color: #444;
+      font-size: 0.9em;
+      border: none;
+      cursor: pointer;
+    }
+
+    audio {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6a7ab31969.mp3?filename=piano-ambiental-110624.mp3" type="audio/mpeg">
+  </audio>
+
   <div class="container">
-    <h1>Éclats d'Enfance</h1>
-    <div class="subtitle">Une œuvre collaborative de Pierre et Léna</div>
-    <div class="image-container">
-      <img src="Dessin.jpg" alt="Dessin de Pierre et Léna">
+    <div class="lang-switch">
+      <button onclick="toggleLang()">🌍 Switch to English</button>
     </div>
-    <div class="description">
+
+    <h1 id="titre">Éclats d'Enfance</h1>
+    <div class="subtitle" id="soustitre">Une œuvre collaborative de Pierre et Léna</div>
+
+    <div class="image-container">
+      <img src="Dessin.jpg" alt="Dessin de Pierre et Léna" id="artImage">
+    </div>
+
+    <div class="description" id="description">
       <p>
-        À la frontière entre l’abstraction poétique et la figuration naïve, cette œuvre est un hymne aux liens fraternels et à la spontanéité de l’imaginaire enfantin. Les contours vibrants et les couleurs éclatantes témoignent d’une liberté créative sans retenue.
+        À la frontière entre l’abstraction poétique et la figuration naïve, cette œuvre est un hymne aux liens fraternels et à la spontanéité de l’imaginaire enfantin.
       </p>
       <p>
-        Le personnage central, aux ailes amples et au sourire bleu ciel, semble émaner d’un monde intérieur où l’innocence prend forme humaine. Autour de lui, des motifs organiques flottent comme des pensées illustrées : spirales, bulles, silhouettes, comme autant de souvenirs épars.
+        Le personnage central, aux ailes amples et au sourire bleu ciel, semble émaner d’un monde intérieur où l’innocence prend forme humaine.
       </p>
       <p>
-        Le nom de <strong>PIERRE</strong> à gauche et celui de <strong>LÉNA</strong> à droite forment une composition symétrique subtile, encadrant le cœur du dessin comme une signature affective. L’ensemble évoque une fresque miniature, une œuvre brute et sincère, qui mérite sa place dans les plus belles galeries de l’âme.
+        Le nom de <strong>PIERRE</strong> à gauche et celui de <strong>LÉNA</strong> à droite encadrent le cœur du dessin comme une signature affective.
       </p>
+    </div>
+
+    <div class="signature">
+      ✍️ Pierre & Léna
+    </div>
+
+    <div class="formulaire">
+      <h2 id="titreForm">Laissez une dédicace</h2>
+      <input type="text" placeholder="Votre nom">
+      <textarea rows="4" placeholder="Votre message..."></textarea>
+      <button onclick="alert('Merci pour votre message !')">Envoyer</button>
     </div>
   </div>
+
+  <script>
+    // Zoom plein écran
+    const img = document.getElementById('artImage');
+    img.addEventListener('click', () => {
+      img.classList.toggle('fullscreen');
+    });
+
+    // Langue FR / EN
+    let lang = 'fr';
+    function toggleLang() {
+      if (lang === 'fr') {
+        document.getElementById('titre').innerText = 'Childhood Radiance';
+        document.getElementById('soustitre').innerText = 'A collaborative artwork by Pierre and Léna';
+        document.getElementById('description').innerHTML = `
+          <p>
+            Between poetic abstraction and naive figuration, this work is a hymn to sibling bonds and the spontaneity of childhood imagination.
+          </p>
+          <p>
+            The central figure, with wide wings and a sky-blue smile, seems to emerge from an inner world where innocence takes human form.
+          </p>
+          <p>
+            The names <strong>PIERRE</strong> and <strong>LÉNA</strong> frame the heart of the composition like an emotional signature.
+          </p>`;
+        document.getElementById('titreForm').innerText = 'Leave a dedication';
+        document.querySelector('.lang-switch button').innerText = '🌍 Passer en français';
+        lang = 'en';
+      } else {
+        document.getElementById('titre').innerText = 'Éclats d\'Enfance';
+        document.getElementById('soustitre').innerText = 'Une œuvre collaborative de Pierre et Léna';
+        document.getElementById('description').innerHTML = `
+          <p>
+            À la frontière entre l’abstraction poétique et la figuration naïve, cette œuvre est un hymne aux liens fraternels et à la spontanéité de l’imaginaire enfantin.
+          </p>
+          <p>
+            Le personnage central, aux ailes amples et au sourire bleu ciel, semble émaner d’un monde intérieur où l’innocence prend forme humaine.
+          </p>
+          <p>
+            Le nom de <strong>PIERRE</strong> à gauche et celui de <strong>LÉNA</strong> à droite encadrent le cœur du dessin comme une signature affective.
+          </p>`;
+        document.getElementById('titreForm').innerText = 'Laissez une dédicace';
+        document.querySelector('.lang-switch button').innerText = '🌍 Switch to English';
+        lang = 'fr';
+      }
+    }
+  </script>
 </body>
 </html>
