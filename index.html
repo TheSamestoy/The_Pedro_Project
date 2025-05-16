@@ -7,10 +7,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
 </head>
 <body>
-  <audio autoplay loop>
+
+  <!-- AUDIO -->
+  <audio id="audio" autoplay muted loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6a7ab31969.mp3?filename=piano-ambiental-110624.mp3" type="audio/mpeg">
   </audio>
 
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const audio = document.getElementById('audio');
+      audio.muted = false;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          console.log("Lecture audio bloquée par le navigateur.");
+        });
+      }
+    });
+  </script>
+
+  <!-- HEADER -->
   <header>
     <h1>The Pedro Galerie</h1>
     <nav>
@@ -20,6 +36,7 @@
     </nav>
   </header>
 
+  <!-- MAIN -->
   <main>
     <h2>Éclats d'Enfance</h2>
     <p class="subtitle">Une œuvre collaborative de Pierre et Léna</p>
@@ -37,6 +54,7 @@
     <p class="signature">✍️ Pierre & Léna</p>
   </main>
 
+  <!-- ZOOM JS -->
   <script>
     const image = document.getElementById('zoomable');
     image.addEventListener('click', () => {
