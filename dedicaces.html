@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dédicaces – Galerie Pedro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Galerie Pedro</h1>
+    <nav>
+      <a href="index.html">Œuvre</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="dedicaces.html">Dédicaces</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Laissez une dédicace</h2>
+    <form onsubmit="event.preventDefault(); alert('Merci pour votre message ! ✨');">
+      <label>Votre nom :</label>
+      <input type="text" required>
+
+      <label>Votre message :</label>
+      <textarea rows="4" required></textarea>
+
+      <button type="submit">Envoyer</button>
+    </form>
+  </main>
+</body>
+</html>
